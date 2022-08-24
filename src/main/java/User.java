@@ -1,15 +1,18 @@
+import java.util.Scanner;
+
 /**
  * Описываем обычного пользователя
  */
-public class User extends Person{
+public class User extends Person implements UserActions{
 
     public User(String name, String surname) {
         super(name, surname);
-        setRole();
+        login = "User";
+        password = "User";
     }
 
     @Override
-    public void setRole() {
-        role = Role.USER;
+    public void editMessage() {
+
     }
 }

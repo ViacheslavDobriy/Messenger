@@ -1,15 +1,26 @@
 /**
  * Описываем модератора
  */
-public class Moderator extends Person{
+public class Moderator extends Person implements ModeratorActions{
 
     public Moderator(String name, String surname) {
         super(name, surname);
-        setRole();
+        login = "Moderator";
+        password = "Moderator";
     }
 
     @Override
-    public void setRole() {
-        role = Role.MODERATOR;
+    public void editMessage() {
+
+    }
+
+    @Override
+    public void removeMessage() {
+
+    }
+
+    @Override
+    public void banUser(Person user) {
+
     }
 }
