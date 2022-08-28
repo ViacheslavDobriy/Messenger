@@ -13,8 +13,8 @@ public abstract class Person {
         this.surname = surname;
     }
     public Chat startChat(Person person){
-        person.role = Role.ADMIN;
-        return new Chat(person);
+        Person admin = new Admin(person.name, person.surname);
+        return new Chat(admin);
     }
 
     public String getLogin() {

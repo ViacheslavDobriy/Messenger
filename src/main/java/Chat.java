@@ -8,7 +8,7 @@ public class Chat {
     private List<Person> users = new ArrayList<>();
     private List<Message> messagesData = new ArrayList<>();
 
-    public Chat(Person person) {
+    public Chat(Person person) {;
         this.users.add(person);
     }
 
