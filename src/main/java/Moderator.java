@@ -5,6 +5,7 @@ public class Moderator extends Person implements ModeratorActions{
 
     public Moderator(String name, String surname) {
         super(name, surname);
+        setID();
         login = "Moderator";
         password = "Moderator";
     }
