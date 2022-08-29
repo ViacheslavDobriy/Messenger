@@ -46,9 +46,24 @@ public class UserInterface {
             System.out.printf("%s %s\n", friend.name, friend.surname);
         }
         System.out.println("Type name of your friend to chat with him!");
+        String name = insert.nextLine();
         for (Person friend: person.getContactList()) {
-            if(friend.name.equals(insert.nextLine())) {
-
+            if(friend.name.equals(name)) {
+                Chat newChat = new Chat(person, friend);
+                System.out.println("Write STOP when you want stop your chatting");
+                String message = "NoSTOP";
+                while(!message.equals("STOP")){
+                    System.out.println(newChat.getPerson1().name);
+                    message = insert.nextLine();
+                    if(!message.equals("STOP")) {
+                        newChat.getMessagesData().add(new Message(newChat.getPerson1(), message));
+                        System.out.println(newChat.getPerson2().name);
+                        message = insert.nextLine();
+                        if(!message.equals("STOP")) {
+                            newChat.getMessagesData().add(new Message(newChat.getPerson2(), message));
+                        }
+                    }
+                }
             }
         }
     }

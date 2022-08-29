@@ -12,8 +12,9 @@ public class Chat {
     private Person person2;
     private List<Message> messagesData = new ArrayList<>();
 
-    public Chat(Person person) {
-        this.person1=person;
+    public Chat(Person person1, Person person2) {
+        this.person1=person1;
+        this.person2=person2;
     }
 
     public Person getPerson1() {

@@ -2,6 +2,7 @@ import java.time.LocalDate;
 
 /**
  * описываем объект сообщение
+ * В одном из следующих обновлений будет добавлена хронология сообщений
  */
 public class Message {
     Person person;

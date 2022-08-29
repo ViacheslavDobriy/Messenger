@@ -8,7 +8,7 @@ public class ID {
     public ID(Person person) {
         this.person = person;
         ID = MemberStorage.count++;
-        System.out.printf("Your ID is %d\n", ID);
+        System.out.printf("%s ID is %d\n",person.name, ID);
         MemberStorage.getIdStorage().add(this);
     }
 
