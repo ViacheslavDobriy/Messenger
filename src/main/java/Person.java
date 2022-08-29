@@ -1,20 +1,27 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Описываем абстрактный класс личность
  */
 public abstract class Person {
-    String name;
-    String surname;
-    Role role;
-    String login;
-    String password;
+    protected String name;
+    protected String surname;
+    protected Role role;
+    protected String login;
+    protected String password;
+    protected List<Person> contactList = new ArrayList<>();
 
     public Person(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
-    public Chat startChat(Person person){
-        person.role = Role.ADMIN;
-        return new Chat(person);
+    public void setID(){
+        new ID(this);
+    }
+
+    public List<Person> getContactList() {
+        return contactList;
     }
 
     public String getLogin() {

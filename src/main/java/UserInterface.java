@@ -5,62 +5,63 @@ import java.util.Scanner;
  */
 public class UserInterface {
     private Scanner insert = new Scanner(System.in);
-    private UsersData usersData = new UsersData();
 
-    public void verification() {
+    public void hello() {
+        System.out.println("*****************Welcome to the SlavaMes******************");
+        System.out.println("*****This is new messenger from Junior Java-developer*****");
         System.out.println("Insert your login/name");
         String login = insert.nextLine();
-        for (Person person: usersData.getUsersData()) {
-            if (login.equals(person.getLogin())){
+        for (ID id: MemberStorage.getIdStorage()) {
+            if (login.equals(id.getPerson().login)){
                 System.out.println("Insert your password");
-                if (insert.nextLine().equals(person.getPassword())){
-                    System.out.println("You are successfully log in");
-                    mainMenu(person);
-                } else {
-                    System.out.println("password is incorrect!");
+                while (!insert.nextLine().equals(id.getPerson().password)){
+                    System.out.println("password is incorrect! Try again!");
                 }
+                System.out.println("You are successfully log in");
+                mainMenu(id.getPerson());
             }
         }
-        System.out.println("To be continue");
+        System.out.println("We can't find you, do you wanna register?");
+        if(insert.nextLine().equals("yes")){
+            mainMenu(registration());
+        } else System.out.println("See you next time!");
+    }
+
+    public Person registration(){
+        System.out.println("Insert your name: ");
+        String name = insert.nextLine();
+        System.out.println("Insert your surname: ");
+        String surname = insert.nextLine();
+        return new User(name, surname);
     }
 
     public void mainMenu(Person person) {
-        System.out.println("Do you wanna chat?");
-        if(insert.nextLine().equals("yes")){
-            Chat chat = person.startChat(person);
-            adminMenu(person, chat);
-        } else {
-            System.out.println("Ok! bye bye!");
+        System.out.println("*****Congratulation with your registration on SlavaMes!*****");
+        System.out.println("Do you wanna add friend in your friend list?*****************");
+        while (insert.nextLine().equals("yes")){
+            person.getContactList().add(((User) person).addPersonInFriends());
+            System.out.println("If you wanna continue type yes, if you wanna see list of your friends type no");
         }
-    }
-
-    public void adminMenu(Person person, Chat chat) {
-        System.out.println("What do you wanna do?");
-        System.out.println("1 - add member");
-        System.out.println("2 - chat");
-        System.out.println("3 - give a role to member");
-        switch (insert.nextInt()) {
-            case 1 -> {
-                User newUser = new User("Nikita", "Molodec");
-                ((Admin) person).addUserInChat(newUser, chat);
-            }
-            case 2 -> {
-                System.out.println("Write STOP if you wanna stop conversation");
-                while(!insert.nextLine().equals("STOP")) {
-                    for (Person man: chat.getUsers()) {
-                        ((Admin) man).writeMessage(chat, man);
-                    }
-                }
-            }
-            case 3 -> {
-                System.out.println("Who will get new role?");
-                for (Person man: chat.getUsers()) {
-                    System.out.println(man.getLogin());
-                }
-                String inserted = insert.nextLine();
-                for (Person man: chat.getUsers()) {
-                    if (man.getLogin().equals(inserted)) {
-                        ((Admin) person).giveRole(man);
+        for (Person friend: person.getContactList()) {
+            System.out.printf("%s %s\n", friend.name, friend.surname);
+        }
+        System.out.println("Type name of your friend to chat with him!");
+        String name = insert.nextLine();
+        for (Person friend: person.getContactList()) {
+            if(friend.name.equals(name)) {
+                Chat newChat = new Chat(person, friend);
+                System.out.println("Write STOP when you want stop your chatting");
+                String message = "NoSTOP";
+                while(!message.equals("STOP")){
+                    System.out.println(newChat.getPerson1().name);
+                    message = insert.nextLine();
+                    if(!message.equals("STOP")) {
+                        newChat.getMessagesData().add(new Message(newChat.getPerson1(), message));
+                        System.out.println(newChat.getPerson2().name);
+                        message = insert.nextLine();
+                        if(!message.equals("STOP")) {
+                            newChat.getMessagesData().add(new Message(newChat.getPerson2(), message));
+                        }
                     }
                 }
             }

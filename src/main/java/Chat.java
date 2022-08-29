@@ -2,18 +2,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Описываю класс Chat, храню здесь только участников чата и сообщения, которые были введены в данном чате
+ * Описываю класс Chat, храню здесь только участников чата и сообщения, которые были введены в данном чате.
+ * На данный момент реализовано общение только двух пользователей.
+ * Общение двух+ пользователей работает с ошибкой.
+ * Групповые чаты будут добавлены в следующем обновлении.
  */
 public class Chat {
-    private List<Person> users = new ArrayList<>();
+    private Person person1;
+    private Person person2;
     private List<Message> messagesData = new ArrayList<>();
 
-    public Chat(Person person) {
-        this.users.add(person);
+    public Chat(Person person1, Person person2) {
+        this.person1=person1;
+        this.person2=person2;
     }
 
-    public List<Person> getUsers() {
-        return users;
+    public Person getPerson1() {
+        return person1;
+    }
+
+    public Person getPerson2() {
+        return person2;
     }
 
     public List<Message> getMessagesData() {

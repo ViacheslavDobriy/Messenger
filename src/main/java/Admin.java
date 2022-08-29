@@ -7,6 +7,7 @@ public class Admin extends Person implements AdminActions{
 
     public Admin(String name, String surname) {
         super(name, surname);
+        setID();
         login = "Admin";
         password = "Admin";
     }
@@ -18,9 +19,9 @@ public class Admin extends Person implements AdminActions{
 
     @Override
     public void addUserInChat(Person person, Chat chat) {
-
-        chat.getUsers().add(person);
-
+//
+//        chat.getUsers().add(person);
+//
     }
 
     @Override
