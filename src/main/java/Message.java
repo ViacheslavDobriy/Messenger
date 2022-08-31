@@ -14,4 +14,9 @@ public class Message {
         this.message = message;
 //        this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return person.name + ":" + " " + message;
+    }
 }

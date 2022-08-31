@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -6,7 +7,7 @@ import java.util.Scanner;
 public class UserInterface {
     private Scanner insert = new Scanner(System.in);
 
-    public void hello() {
+    public void hello() throws IOException {
         System.out.println("*****************Welcome to the SlavaMes******************");
         System.out.println("*****This is new messenger from Junior Java-developer*****");
         System.out.println("Insert your login/name");
@@ -35,7 +36,7 @@ public class UserInterface {
         return new User(name, surname);
     }
 
-    public void mainMenu(Person person) {
+    public void mainMenu(Person person) throws IOException {
         System.out.println("*****Congratulation with your registration on SlavaMes!*****");
         System.out.println("Do you wanna add friend in your friend list?*****************");
         while (insert.nextLine().equals("yes")){
@@ -49,22 +50,26 @@ public class UserInterface {
         String name = insert.nextLine();
         for (Person friend: person.getContactList()) {
             if(friend.name.equals(name)) {
-                Chat newChat = new Chat(person, friend);
-                System.out.println("Write STOP when you want stop your chatting");
-                String message = "NoSTOP";
-                while(!message.equals("STOP")){
-                    System.out.println(newChat.getPerson1().name);
-                    message = insert.nextLine();
-                    if(!message.equals("STOP")) {
-                        newChat.getMessagesData().add(new Message(newChat.getPerson1(), message));
-                        System.out.println(newChat.getPerson2().name);
-                        message = insert.nextLine();
-                        if(!message.equals("STOP")) {
-                            newChat.getMessagesData().add(new Message(newChat.getPerson2(), message));
-                        }
-                    }
+                chatting(new Chat(person, friend));
+            }
+        }
+    }
+
+    private void chatting(Chat chat) throws IOException {
+        System.out.println("Write '/stop' when you want stop your chatting");
+        String message = "NoSTOP";
+        while(!message.equals("/stop")){
+            System.out.println(chat.getPerson1().name);
+            message = insert.nextLine();
+            if(!message.equals("/stop")) {
+                chat.getMessagesData().add(new Message(chat.getPerson1(), message));
+                System.out.println(chat.getPerson2().name);
+                message = insert.nextLine();
+                if(!message.equals("/stop")) {
+                    chat.getMessagesData().add(new Message(chat.getPerson2(), message));
                 }
             }
         }
+        chat.writeMessageInFile();
     }
 }
