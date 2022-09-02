@@ -10,10 +10,11 @@ public class UserInterface {
     public void hello() throws IOException {
         System.out.println("*****************Welcome to the SlavaMes******************");
         System.out.println("*****This is new messenger from Junior Java-developer*****");
-        System.out.println("Insert your login/name");
+        System.out.println("Insert your name");
         String login = insert.nextLine();
+        MemberStorage.checkUsersDB();
         for (ID id: MemberStorage.getIdStorage()) {
-            if (login.equals(id.getPerson().login)){
+            if (login.equals(id.getPerson().name)){
                 System.out.println("Insert your password");
                 while (!insert.nextLine().equals(id.getPerson().password)){
                     System.out.println("password is incorrect! Try again!");
@@ -28,12 +29,14 @@ public class UserInterface {
         } else System.out.println("See you next time!");
     }
 
-    public Person registration(){
+    public Person registration() throws IOException {
         System.out.println("Insert your name: ");
         String name = insert.nextLine();
         System.out.println("Insert your surname: ");
         String surname = insert.nextLine();
-        return new User(name, surname);
+        Person newUser = new User(name, surname);
+        MemberStorage.addUserInFile(newUser);
+        return newUser;
     }
 
     public void mainMenu(Person person) throws IOException {

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -11,13 +12,15 @@ public interface UserActions {
         chat.getMessagesData().add(new Message(person, scanner.nextLine()));
     }
 
-    public default Person addPersonInFriends(){
+    public default Person addPersonInFriends() throws IOException {
         Scanner nameSurname = new Scanner(System.in);
         System.out.println("Insert name of your friend: ");
         String name = nameSurname.nextLine();
         System.out.println("Insert surname of your friend: ");
         String surname = nameSurname.nextLine();
-        return new User(name, surname);
+        Person newFriend = new User(name, surname);
+        MemberStorage.addUserInFile(newFriend);
+        return newFriend;
 
     }
     public void editMessage();
