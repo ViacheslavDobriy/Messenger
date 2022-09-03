@@ -10,19 +10,8 @@ public class UserInterface {
     public void hello() throws IOException {
         System.out.println("*****************Welcome to the SlavaMes******************");
         System.out.println("*****This is new messenger from Junior Java-developer*****");
-        System.out.println("Insert your name");
-        String login = insert.nextLine();
         MemberStorage.checkUsersDB();
-        for (ID id: MemberStorage.getIdStorage()) {
-            if (login.equals(id.getPerson().name)){
-                System.out.println("Insert your password");
-                while (!insert.nextLine().equals(id.getPerson().password)){
-                    System.out.println("password is incorrect! Try again!");
-                }
-                System.out.println("You are successfully log in");
-                mainMenu(id.getPerson());
-            }
-        }
+        enterInSystem();
         System.out.println("We can't find you, do you wanna register?");
         if(insert.nextLine().equals("yes")){
             mainMenu(registration());
@@ -36,14 +25,35 @@ public class UserInterface {
         String surname = insert.nextLine();
         Person newUser = new User(name, surname);
         MemberStorage.addUserInFile(newUser);
+        System.out.println("*****Congratulation with your registration on SlavaMes!*****");
+        System.out.println("Do you wanna add friend in your friend list?*****************");
         return newUser;
     }
 
+    public void enterInSystem() throws IOException {
+        System.out.println("Insert your name");
+        String login = insert.nextLine();
+        for (ID id: MemberStorage.getIdStorage()) {
+            if (login.equals(id.getPerson().name)){
+                System.out.println("Insert your password");
+                while (!insert.nextLine().equals(id.getPerson().password)){
+                    System.out.println("password is incorrect! Try again!");
+                }
+                System.out.println("You are successfully log in");
+                id.getPerson().addInFriendsFromFile();
+                if (id.getPerson().contactList != null) {
+                    id.getPerson().showFriends();
+                }
+                System.out.println("Do you wanna add friend in your friend list?*****************");
+                mainMenu(id.getPerson());
+            }
+        }
+    }
+
     public void mainMenu(Person person) throws IOException {
-        System.out.println("*****Congratulation with your registration on SlavaMes!*****");
-        System.out.println("Do you wanna add friend in your friend list?*****************");
         while (insert.nextLine().equals("yes")){
             person.getContactList().add(((User) person).addPersonInFriends());
+            person.updateFriendListFile();
             System.out.println("If you wanna continue type yes, if you wanna see list of your friends type no");
         }
         for (Person friend: person.getContactList()) {

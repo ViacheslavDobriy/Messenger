@@ -28,7 +28,6 @@ public class MemberStorage {
                 String[] nameSurname = person.split(" ");
                 idStorage.add(new ID(new User(nameSurname[0], nameSurname[1])));
             }
-
         }
     }
 
@@ -40,8 +39,4 @@ public class MemberStorage {
         Files.writeString(path, updatedDB);
         System.out.println("Written in file!");
     }
-
-//    private void addPersonFromFile() {
-//
-//    }
 }

@@ -5,7 +5,6 @@ public class User extends Person implements UserActions{
 
     public User(String name, String surname) {
         super(name, surname);
-        setID();
         login = "User";
         password = "User";
     }
