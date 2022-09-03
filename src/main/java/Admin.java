@@ -7,7 +7,6 @@ public class Admin extends Person implements AdminActions{
 
     public Admin(String name, String surname) {
         super(name, surname);
-        setID();
         login = "Admin";
         password = "Admin";
     }
